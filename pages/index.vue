@@ -1,6 +1,14 @@
-<script setup>
-    import navbar from '~/components/navbar.vue';
-    import Footer from '../components/footer.vue';
+<script lang="ts" setup>
+import { useProductsStore } from "~/stores/products";
+
+const productStore = useProductsStore();
+const allProducts = ref([]);
+
+productStore.getAllProducts().then(() => {
+    allProducts.value = productStore.products;
+});
+
+const selectedCategory = ref("");
 </script>
 
 <template>

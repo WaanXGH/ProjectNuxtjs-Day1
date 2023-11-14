@@ -1,18 +1,14 @@
 <script lang="ts" setup>
-import navbar from '~/components/navbar.vue';
-import Footer from '../components/footer.vue';
-import products from '~/composables/constants/products';
-import CardProduct from "~/components/cards/CardProduct.vue"
+import { useProductsStore } from "~/stores/products";
 
+const productStore = useProductsStore();
+const allProducts = ref([]);
+
+productStore.getAllProducts().then(() => {
+    allProducts.value = productStore.products;
+});
 
 const selectedCategory = ref("");
-
-const allProducts = computed(() => {
-    if (selectedCategory.value) {
-        return products.filter((item) => item.category === selectedCategory.value);
-    }
-    return products;
-});
 </script>
 
 
@@ -24,6 +20,9 @@ const allProducts = computed(() => {
                 <div class="mb-6 flex justify-end gap-6">
                     <NuxtLink to="/category/create"
                         class="bg-orange-500 text-white flex justify-center items-center px-3 rounded-lg">Create Category
+                    </NuxtLink>
+                    <NuxtLink to="/product/create"
+                        class="bg-green-500 text-white flex justify-center items-center px-3 rounded-lg">Create Products
                     </NuxtLink>
                     <Dropdown @selected-category="selectedCategory = $event" />
                 </div>
