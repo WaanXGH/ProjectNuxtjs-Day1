@@ -1,5 +1,7 @@
 <script lang="ts" setup>
 import { useProductsStore } from "~/stores/products";
+import navbar from "~/components/header.vue";
+
 
 const productStore = useProductsStore();
 const allProducts = ref([]);

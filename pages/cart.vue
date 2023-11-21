@@ -3,6 +3,11 @@ import navbar from '~/components/navbar.vue';
 import Footer from '../components/footer.vue';
 import Products from '~/types/Products';
 
+
+definePageMeta({
+    middleware: ["user-access"]
+});
+
 const products = ref<Products[]>([]);
 const totalPrice = computed(() => {
     return products.value.filter((product) => product.price !==
@@ -18,6 +23,8 @@ onMounted(() => {
 })
 
 
+
+
 const removeCart = (id: number) => {
     products.value = products.value.filter((item) => item.id !== id);
     localStorage.setItem("products", JSON.stringify(products.value));
@@ -26,7 +33,7 @@ const removeCart = (id: number) => {
 </script>
 
 <template>
-    <navbar />
+    <header />
     <section>
         <div class="container">
             <div class="py-10 flex gap-6">
